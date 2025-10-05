@@ -1,27 +1,75 @@
-import { useState } from "react"
-import { useAuthStore } from "../store/useAuthStore"
+import React, { useState } from 'react'
+import { FormItem } from '../components/ui/FormItem'
+import { MdMessage } from 'react-icons/md'
+import { FaTruckLoading } from 'react-icons/fa'
+import { useAuthStore } from "../store/useAuthStore";
+import { Link } from "react-router-dom";
+import AuthImagePattern from '../components/AuthImagePattern';
 
 const SignUpPage = () => {
-  const [showPassword, setShowPassword] = useState(false)
   const [formData, setFormData] = useState({
-    fullName: "",
-    email:"",
-    password:"",
+    fullName: '',
+    email: '',
+    password: '',
   })
 
-  const {signup, isSigningUp} = useAuthStore()
+  const { signup, isSigningUp } = useAuthStore();
 
-  const validateForm = () => {}
-  const handleSubmit = (e) => {
-    e.preventDefault()
-  }
   return (
     <div className="min-h-screen grid lg:grid-cols-2">
       <div className="col-center p-6 sm:p-12">
         <div className="w-full max-w-md space-y-8">
-           test
+          <div className="text-center mb-8">
+            <div className="flex flex-col items-center gap-2 group">
+              <div className="size-12 rounded-xl bg-amber-300/10 flex-center group-hover:bg-amber-300/20 transition-colors ">
+                <MdMessage className="size-6" />
+              </div>
+              <h1 className="text-2xl font-bold mt-2">Create Account</h1>
+              <p>Get started with your free account</p>
+            </div>
+          </div>
+
+          <form className="space-y-6">
+            <FormItem
+              type="text"
+              value={formData.fullName}
+              onChange={e => setFormData({ ...formData, fullName: e.target.value })}
+            />
+            <FormItem
+              type="email"
+              value={formData.email}
+              onChange={e => setFormData({ ...formData, email: e.target.value })}
+            />
+            <FormItem
+              type="password"
+              value={formData.password}
+              onChange={e => setFormData({ ...formData, password: e.target.value })}
+            />
+            <button type="submit" className="bg-accent text-dark w-full flex-center" disabled={isSigningUp}>
+              {isSigningUp ? (
+                <>
+                  <FaTruckLoading className="size-5 animate-spin" />
+                  Loading...
+                </>
+              ) : (
+                "Create Account"
+              )}
+            </button>
+          </form>
+
+          <div className="text-center">
+            <p className="text-base-content/60">
+              Already have an account?{" "}
+              <Link to="/login" className="link link-primary">
+                Sign in
+              </Link>
+            </p>
+          </div>
+
         </div>
       </div>
+
+      <AuthImagePattern title="Join our community" subtitle="Connect with friends, share moments, and stay in touch with your loved ones." />
     </div>
   )
 }
