@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { FaUser, FaLock } from "react-icons/fa"
+import { FaUser, FaLock, FaRegEye, FaRegEyeSlash } from "react-icons/fa"
 import { MdOutlineAlternateEmail } from "react-icons/md"
 
 export const FormItem = ({ type = "text", value, onChange }) => {
@@ -57,7 +57,7 @@ export const FormItem = ({ type = "text", value, onChange }) => {
             className="absolute inset-y-0 right-0 pr-3 flex items-center select-none"
             onClick={() => setShowPassword(!showPassword)}
           >
-            {showPassword ? <p>close</p> : <p>open</p>}
+            {showPassword ? <FaRegEye className="size-5.5"/> : <FaRegEyeSlash className="size-6"/>}
           </button>
         )}
       </div>

@@ -5,6 +5,7 @@ import { FormItem } from "../components/ui/FormItem"
 import { Link } from "react-router-dom"
 import AuthImagePattern from "../components/AuthImagePattern"
 import { FaTruckLoading } from "react-icons/fa"
+import LoadingButton from "../components/ui/LoadingButton"
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
@@ -43,16 +44,7 @@ const LoginPage = () => {
               value={formData.password}
               onChange={e => setFormData({ ...formData, password: e.target.value })}
             />
-            <button type="submit" className="bg-accent text-dark w-full flex-center" disabled={isLoggingIn}>
-              {isLoggingIn ? (
-                <>
-                  <FaTruckLoading className="size-5 animate-spin" />
-                  Loading...
-                </>
-              ) : (
-                "Create Account"
-              )}
-            </button>
+            <LoadingButton type="submit" text="Log in" isLoading={isLoggingIn}/>
           </form>
 
           <div className="text-center">

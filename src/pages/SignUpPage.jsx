@@ -6,6 +6,8 @@ import { useAuthStore } from "../store/useAuthStore";
 import { Link } from "react-router-dom";
 import AuthImagePattern from '../components/AuthImagePattern';
 import toast from 'react-hot-toast'
+import Logo from '../components/ui/Logo';
+import LoadingButton from '../components/ui/LoadingButton';
 
 const SignUpPage = () => {
   const [formData, setFormData] = useState({
@@ -39,10 +41,8 @@ const SignUpPage = () => {
       <div className="col-center p-6 sm:p-12">
         <div className="w-full max-w-md space-y-8">
           <div className="text-center mb-8">
-            <div className="flex flex-col items-center gap-2 group">
-              <div className="size-12 rounded-xl bg-amber-300/10 flex-center group-hover:bg-amber-300/20 transition-colors ">
-                <MdMessage className="size-6" />
-              </div>
+            <div className="flex flex-col items-center gap-2">
+              <Logo />
               <h1 className="text-2xl font-bold mt-2">Create Account</h1>
               <p>Get started with your free account</p>
             </div>
@@ -64,16 +64,7 @@ const SignUpPage = () => {
               value={formData.password}
               onChange={e => setFormData({ ...formData, password: e.target.value })}
             />
-            <button type="submit" className="bg-accent text-dark w-full flex-center" disabled={isSigningUp}>
-              {isSigningUp ? (
-                <>
-                  <FaTruckLoading className="size-5 animate-spin" />
-                  Loading...
-                </>
-              ) : (
-                "Create Account"
-              )}
-            </button>
+            <LoadingButton isLoading={isSigningUp} text="Create Account" type="submit" />
           </form>
 
           <div className="text-center">

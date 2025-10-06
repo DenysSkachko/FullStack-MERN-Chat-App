@@ -19,6 +19,10 @@
   @apply w-full h-full;
 }
 
+@utility container {
+  @apply max-w-[1400px];
+}
+
 body {
   background-color: #641B2E;
   color: #F39F5A;
