@@ -21,3 +21,7 @@ body {
   background-color: #451952;
   color: #F39F5A;
 }
+
+button {
+  cursor: pointer;
+}

@@ -16,7 +16,7 @@ export const FormItem = ({ type = "text", value, onChange }) => {
     name = "email"
     placeholder = "you@example.com"
     icon = <MdOutlineAlternateEmail size={18} className="" />
-    autoComplete = "off"
+    autoComplete = "on"
   }
 
   if (type === "password") {
