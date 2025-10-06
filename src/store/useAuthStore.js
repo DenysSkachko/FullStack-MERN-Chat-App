@@ -1,8 +1,8 @@
-import { create } from "zustand"
-import { axiosInstance } from "../lib/axios"
-import toast from "react-hot-toast"
+import { create } from 'zustand'
+import { axiosInstance } from '../lib/axios'
+import toast from 'react-hot-toast'
 
-export const useAuthStore = create((set) => ({
+export const useAuthStore = create(set => ({
   authUser: null,
   isSigningUp: false,
   isLoggingIn: false,
@@ -11,35 +11,56 @@ export const useAuthStore = create((set) => ({
 
   checkAuth: async () => {
     try {
-      const res = await axiosInstance.get("/auth/check")
+      const res = await axiosInstance.get('/auth/check')
       set({ authUser: res.data })
     } catch (err) {
       set({ authUser: null })
-      console.log("Error in checkAuth:", err)
+      console.log('Error in checkAuth:', err)
     } finally {
       set({ isCheckingAuth: false })
     }
   },
 
-  signup: async (data) => {
+  signup: async data => {
     set({ isSigningUp: true })
     try {
-      const res = await axiosInstance.post("/auth/signup", data)
-      console.log("Signup response:", res) // 👈 посмотри в консоли, что пришло
-      if (!res || !res.data) throw new Error("Empty response from server")
+      const res = await axiosInstance.post('/auth/signup', data)
+
+      if (!res || !res.data) throw new Error('Empty response from server')
 
       set({ authUser: res.data })
-      toast.success("Account created successfully")
+      toast.success('Account created successfully')
       return res.data
     } catch (err) {
-      console.error("Signup error:", err)
+      console.error('Signup error:', err)
       const message =
-        err.response?.data?.message ||
-        err.message ||
-        "Signup failed. Please try again."
+        err.response?.data?.message || err.message || 'Signup failed. Please try again.'
       toast.error(message)
     } finally {
       set({ isSigningUp: false })
+    }
+  },
+
+  login: async data => {
+    set({ isLoggingIn: true })
+    try {
+      const res = await axiosInstance.post('/auth/login', data)
+      set({ authUser: res.data })
+      toast.success('Logged in successfully')
+    } catch (err) {
+      toast.error(err.response.data.message)
+    } finally {
+      set({ isLoggingIn: false })
+    }
+  },
+
+  logout: async () => {
+    try {
+      await axiosInstance.post('/auth/logout')
+      set({ authUser: null })
+      toast.success('Logged out successfully')
+    } catch (err) {
+      toast.error(err.response.data.message)
     }
   },
 }))

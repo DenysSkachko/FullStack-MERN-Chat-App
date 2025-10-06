@@ -2,7 +2,9 @@
 
 @theme {
   --color-accent: #F39F5A;
-  --color-dark: #451952
+  --color-dark: #641B2E;
+  --color-dark-alt: #8A2D3B;
+  --color-middle: #BE5B50;
 }
 
 @utility flex-center {
@@ -18,7 +20,7 @@
 }
 
 body {
-  background-color: #451952;
+  background-color: #641B2E;
   color: #F39F5A;
 }
 
