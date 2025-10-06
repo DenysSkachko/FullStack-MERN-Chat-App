@@ -32,10 +32,7 @@ export const useAuthStore = create(set => ({
       toast.success('Account created successfully')
       return res.data
     } catch (err) {
-      console.error('Signup error:', err)
-      const message =
-        err.response?.data?.message || err.message || 'Signup failed. Please try again.'
-      toast.error(message)
+      toast.error(err.response.data.message)
     } finally {
       set({ isSigningUp: false })
     }
@@ -65,6 +62,15 @@ export const useAuthStore = create(set => ({
   },
 
   updateProfile: async data => {
-    
+    set({ isUpdatingProfile: true})
+    try {
+      const res = await axiosInstance.put("/auth/update-profile", data)
+      set({ authUser: res.data})
+      toast.success("Profile updated successfully")
+    } catch (err) {
+      toast.error(err.response.data.message)
+    } finally {
+      set({ isUpdatingProfile: false })
+    }
   },
 }))
