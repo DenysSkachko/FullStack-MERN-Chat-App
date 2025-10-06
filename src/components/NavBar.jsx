@@ -11,10 +11,10 @@ const NavBar = () => {
     <header className="bg-dark/85 border-b border-dark fixed w-full top-0 ">
       <div className="container mx-auto px-4 h-16">
         <div className="flex items-center justify-between h-full">
-          <div className="flex items-center gap-2">
+          <Link to={'/'} className="flex items-center gap-2">
             <Logo />
             Proxima Chat App
-          </div>
+          </Link>
           <div className="flex items-center gap-4">
             <Link to={'/settings'} className="flex-center gap-1">
               <IoMdSettings className="size-6" />
