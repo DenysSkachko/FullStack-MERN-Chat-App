@@ -1,7 +1,6 @@
 const MessageCard = ({ message, avatar, person }) => {
   return (
     <div
-      key={message._id}
       className={`flex  items-end gap-2 ${person ? 'flex-row-reverse' : 'flex-row'}`}
     >
       <img src={avatar} alt="avatar" className="size-8 rounded-full object-cover" />

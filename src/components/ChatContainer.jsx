@@ -22,11 +22,11 @@ const ChatContainer = () => {
       <div className="flex-1 overflow-y-auto space-y-4 p-4">
         {messages.map(message => {
           const person = message.senderId === authUser._id
-          const avatar = person ? authUser.profilePic || '/avatar.png' : selectedUser.profilePic || '/avatar.png'
+          const avatar = person
+            ? authUser.profilePic || '/avatar.png'
+            : selectedUser.profilePic || '/avatar.png'
 
-          return (
-            <MessageCard person={person} avatar={avatar} message={message} />
-          )
+          return <MessageCard key={message._id} person={person} avatar={avatar} message={message} />
         })}
       </div>
 
