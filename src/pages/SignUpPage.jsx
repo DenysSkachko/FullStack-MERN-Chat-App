@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
-import { FormItem } from '../components/ui/FormItem'
-import { MdMessage } from 'react-icons/md'
-import { FaTruckLoading } from 'react-icons/fa'
+import FormItem from '../components/ui/FormItem'
 import { useAuthStore } from "../store/useAuthStore";
 import { Link } from "react-router-dom";
 import AuthImagePattern from '../components/AuthImagePattern';

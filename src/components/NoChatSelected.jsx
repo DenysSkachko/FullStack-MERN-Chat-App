@@ -1,5 +1,6 @@
 import React from 'react'
 import { MdMessage } from 'react-icons/md'
+import Logo from './ui/Logo'
 
 const NoChatSelected = () => {
   return (
@@ -11,12 +12,12 @@ const NoChatSelected = () => {
               className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center
              justify-center animate-bounce"
             >
-              <MdMessage className="w-8 h-8 text-primary " />
+              <Logo />
             </div>
           </div>
         </div>
 
-        <h2 className="text-2xl font-bold">Welcome to Chatty!</h2>
+        <h2 className="text-2xl font-bold">Welcome to Chat!</h2>
         <p className="text-base-content/60">
           Select a conversation from the sidebar to start chatting
         </p>

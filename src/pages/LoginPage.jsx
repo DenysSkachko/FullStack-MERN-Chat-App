@@ -1,10 +1,9 @@
 import { useState } from "react"
 import { useAuthStore } from "../store/useAuthStore"
 import { MdMessage } from "react-icons/md"
-import { FormItem } from "../components/ui/FormItem"
+import FormItem from "../components/ui/FormItem"
 import { Link } from "react-router-dom"
 import AuthImagePattern from "../components/AuthImagePattern"
-import { FaTruckLoading } from "react-icons/fa"
 import LoadingButton from "../components/ui/LoadingButton"
 
 const LoginPage = () => {

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { useChatStore } from '../../store/useChatStore'
 import { BsImage, BsSend, BsX } from 'react-icons/bs'
 import toast from 'react-hot-toast'
@@ -10,37 +10,36 @@ const MessageInput = () => {
   const { sendMessage } = useChatStore()
 
   const handleImageChange = e => {
-    console.log("File input changed:", e.target.files)
+    console.log('File input changed:', e.target.files)
     const file = e.target.files[0]
     if (!file) {
-      console.log("No file selected")
+      console.log('No file selected')
       return
     }
     if (!file.type.startsWith('image/')) {
       toast.error('Please select an image file')
-      console.log("Selected file is not an image:", file.type)
+      console.log('Selected file is not an image:', file.type)
       return
     }
 
     const reader = new FileReader()
     reader.onloadend = () => {
-      console.log("FileReader result:", reader.result)
       setImagePreview(reader.result)
     }
     reader.readAsDataURL(file)
   }
 
   const removeImage = () => {
-    console.log("Removing image preview")
+    console.log('Removing image preview')
     setImagePreview(null)
     if (fileInputRef.current) fileInputRef.current.value = ''
   }
 
   const handleSendMessage = async e => {
     e.preventDefault()
-    console.log("Send button clicked, text:", text, "imagePreview:", imagePreview)
+    console.log('Send button clicked, text:', text, 'imagePreview:', imagePreview)
     if (!text.trim() && !imagePreview) {
-      console.log("Nothing to send")
+      console.log('Nothing to send')
       return
     }
 
@@ -49,7 +48,7 @@ const MessageInput = () => {
         text: text.trim(),
         image: imagePreview,
       })
-      console.log("Message sent successfully!")
+      console.log('Message sent successfully!')
 
       setText('')
       setImagePreview(null)
@@ -77,14 +76,7 @@ const MessageInput = () => {
         </div>
       )}
       <form onSubmit={handleSendMessage} className="flex items-center gap-2">
-        <div className="flex-1 flex gap-2 items-center">
-          <input
-            type="text"
-            className="w-full rounded-lg bg-dark p-4"
-            placeholder="Type a message..."
-            value={text}
-            onChange={e => setText(e.target.value)}
-          />
+        <div className="flex-1 flex gap-4 items-center">
           <input
             type="file"
             accept="image/*"
@@ -97,11 +89,18 @@ const MessageInput = () => {
             className="hidden sm:flex"
             onClick={() => fileInputRef.current?.click()}
           >
-            <BsImage className="size-10" />
+            <BsImage className="size-8" />
           </button>
+          <input
+            type="text"
+            className="w-full rounded-lg bg-dark p-4"
+            placeholder="Type a message..."
+            value={text}
+            onChange={e => setText(e.target.value)}
+          />
 
           <button type="submit">
-            <BsSend className="size-10" />
+            <BsSend className="size-8" />
           </button>
         </div>
       </form>

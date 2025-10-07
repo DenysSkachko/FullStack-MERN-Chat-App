@@ -2,7 +2,7 @@ import { useState } from "react"
 import { FaUser, FaLock, FaRegEye, FaRegEyeSlash } from "react-icons/fa"
 import { MdOutlineAlternateEmail } from "react-icons/md"
 
-export const FormItem = ({ type = "text", value, onChange }) => {
+const FormItem = ({ type = "text", value, onChange }) => {
   const [showPassword, setShowPassword] = useState(false)
 
   let label = "Full Name"
@@ -64,3 +64,5 @@ export const FormItem = ({ type = "text", value, onChange }) => {
     </div>
   )
 }
+
+export default FormItem

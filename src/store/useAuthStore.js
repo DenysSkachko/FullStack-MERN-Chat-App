@@ -2,17 +2,19 @@ import { create } from 'zustand'
 import { axiosInstance } from '../lib/axios'
 import toast from 'react-hot-toast'
 
-export const useAuthStore = create(set => ({
+export const useAuthStore = create((set, get) => ({
   authUser: null,
   isSigningUp: false,
   isLoggingIn: false,
   isUpdatingProfile: false,
   isCheckingAuth: true,
+  socket: null,
 
   checkAuth: async () => {
     try {
       const res = await axiosInstance.get('/auth/check')
       set({ authUser: res.data })
+      get().connectSocket()
     } catch (err) {
       set({ authUser: null })
       console.log('Error in checkAuth:', err)
@@ -25,12 +27,10 @@ export const useAuthStore = create(set => ({
     set({ isSigningUp: true })
     try {
       const res = await axiosInstance.post('/auth/signup', data)
-
       if (!res || !res.data) throw new Error('Empty response from server')
-
       set({ authUser: res.data })
       toast.success('Account created successfully')
-      return res.data
+      get().connectSocket()
     } catch (err) {
       toast.error(err.response.data.message)
     } finally {
@@ -44,6 +44,7 @@ export const useAuthStore = create(set => ({
       const res = await axiosInstance.post('/auth/login', data)
       set({ authUser: res.data })
       toast.success('Logged in successfully')
+      get().connectSocket()
     } catch (err) {
       toast.error(err.response.data.message)
     } finally {
@@ -56,21 +57,25 @@ export const useAuthStore = create(set => ({
       await axiosInstance.post('/auth/logout')
       set({ authUser: null })
       toast.success('Logged out successfully')
+      get().disconnectSocket()
     } catch (err) {
       toast.error(err.response.data.message)
     }
   },
 
   updateProfile: async data => {
-    set({ isUpdatingProfile: true})
+    set({ isUpdatingProfile: true })
     try {
-      const res = await axiosInstance.put("/auth/update-profile", data)
-      set({ authUser: res.data})
-      toast.success("Profile updated successfully")
+      const res = await axiosInstance.put('/auth/update-profile', data)
+      set({ authUser: res.data })
+      toast.success('Profile updated successfully')
     } catch (err) {
       toast.error(err.response.data.message)
     } finally {
       set({ isUpdatingProfile: false })
     }
   },
+
+  connectSocket: () => {},
+  disconnectSocket: () => {},
 }))
