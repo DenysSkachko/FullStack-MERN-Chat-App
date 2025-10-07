@@ -10,15 +10,12 @@ const MessageInput = () => {
   const { sendMessage } = useChatStore()
 
   const handleImageChange = e => {
-    console.log('File input changed:', e.target.files)
     const file = e.target.files[0]
     if (!file) {
-      console.log('No file selected')
       return
     }
     if (!file.type.startsWith('image/')) {
       toast.error('Please select an image file')
-      console.log('Selected file is not an image:', file.type)
       return
     }
 
@@ -30,16 +27,13 @@ const MessageInput = () => {
   }
 
   const removeImage = () => {
-    console.log('Removing image preview')
     setImagePreview(null)
     if (fileInputRef.current) fileInputRef.current.value = ''
   }
 
   const handleSendMessage = async e => {
     e.preventDefault()
-    console.log('Send button clicked, text:', text, 'imagePreview:', imagePreview)
     if (!text.trim() && !imagePreview) {
-      console.log('Nothing to send')
       return
     }
 
@@ -48,7 +42,6 @@ const MessageInput = () => {
         text: text.trim(),
         image: imagePreview,
       })
-      console.log('Message sent successfully!')
 
       setText('')
       setImagePreview(null)
