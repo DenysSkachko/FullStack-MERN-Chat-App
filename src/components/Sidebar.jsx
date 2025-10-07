@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react'
 import { useChatStore } from '../store/useChatStore'
 import { FaUser } from 'react-icons/fa'
+import { useAuthStore } from '../store/useAuthStore'
 
 const Sidebar = () => {
   const { getUsers, users, selectedUser, setSelectedUser, isUsersLoading } = useChatStore()
+
+  const { onlineUsers } = useAuthStore()
 
   useEffect(() => {
     getUsers()
@@ -16,7 +19,7 @@ const Sidebar = () => {
       <div className="border-b border-dark w-full p-5 h-18">
         <div className="flex items-center gap-4">
           <FaUser className="size-6" />
-          <span className="font-medium text-xl">Contacts</span>
+          <span className="font-medium text-xl hidden lg:flex">Contacts</span>
         </div>
       </div>
 
@@ -25,7 +28,9 @@ const Sidebar = () => {
           <button
             key={user._id}
             onClick={() => setSelectedUser(user)}
-            className={`w-full p-3 flex items-center gap-3 hover:bg-dark-alt ${selectedUser?._id === user._id ? "bg-middle" : ""}`}
+            className={`w-full p-3 flex items-center gap-3 hover:bg-dark-alt ${
+              selectedUser?._id === user._id ? 'bg-middle' : ''
+            }`}
           >
             <div className="relative mx-auto lg:mx-0 flex items-center gap-4">
               <img
@@ -33,7 +38,17 @@ const Sidebar = () => {
                 alt={user.name}
                 className="size-12 object-cover rounded-full"
               ></img>
-              <span className="font-medium"> {user.fullName}</span>
+              {onlineUsers.includes(user._id) && (
+                <span className="absolute bottom-0 right-0 size-3 bg-green-400 rounded-full"></span>
+              )}
+            </div>
+            <div className="hidden lg:flex">
+              <span className="font-medium "> {user.fullName}</span>
+              {onlineUsers.includes(user._id) ? (
+                <span className=" text-green-400">Online</span>
+              ) : (
+                <span className="text-gray-500">Offline</span>
+              )}
             </div>
           </button>
         ))}
