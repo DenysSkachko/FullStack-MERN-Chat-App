@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { useChatStore } from '../../store/useChatStore'
 import { BsImage, BsSend, BsX } from 'react-icons/bs'
+import toast from 'react-hot-toast'
 
 const MessageInput = () => {
   const [text, setText] = useState('')
@@ -9,25 +10,54 @@ const MessageInput = () => {
   const { sendMessage } = useChatStore()
 
   const handleImageChange = e => {
+    console.log("File input changed:", e.target.files)
     const file = e.target.files[0]
+    if (!file) {
+      console.log("No file selected")
+      return
+    }
     if (!file.type.startsWith('image/')) {
       toast.error('Please select an image file')
+      console.log("Selected file is not an image:", file.type)
       return
     }
 
     const reader = new FileReader()
     reader.onloadend = () => {
+      console.log("FileReader result:", reader.result)
       setImagePreview(reader.result)
     }
     reader.readAsDataURL(file)
   }
 
   const removeImage = () => {
+    console.log("Removing image preview")
     setImagePreview(null)
     if (fileInputRef.current) fileInputRef.current.value = ''
   }
 
-  const handleSendMessage = async e => {}
+  const handleSendMessage = async e => {
+    e.preventDefault()
+    console.log("Send button clicked, text:", text, "imagePreview:", imagePreview)
+    if (!text.trim() && !imagePreview) {
+      console.log("Nothing to send")
+      return
+    }
+
+    try {
+      await sendMessage({
+        text: text.trim(),
+        image: imagePreview,
+      })
+      console.log("Message sent successfully!")
+
+      setText('')
+      setImagePreview(null)
+      if (fileInputRef.current) fileInputRef.current.value = ''
+    } catch (err) {
+      console.error('Failed to send message:', err)
+    }
+  }
 
   return (
     <div className="p-4 w-full">
