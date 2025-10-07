@@ -6,12 +6,16 @@ import ChatHeader from './ChatHeader'
 import MessageCard from './ui/MessageCard'
 
 const ChatContainer = () => {
-  const { messages, getMessages, isMessagesLoading, selectedUser, setSelectedUser } = useChatStore()
+  const { messages, getMessages, isMessagesLoading, selectedUser, setSelectedUser, subscribeToMessages, unsubscribeFromMessages } = useChatStore()
   const { authUser } = useAuthStore()
 
   useEffect(() => {
     if (selectedUser?._id) getMessages(selectedUser._id)
-  }, [selectedUser._id, getMessages])
+
+      subscribeToMessages()
+
+      return () => unsubscribeFromMessages()
+  }, [selectedUser._id, getMessages, subscribeToMessages, unsubscribeFromMessages])
 
   if (isMessagesLoading) return <div>Loading...</div>
 
