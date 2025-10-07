@@ -1,6 +1,6 @@
-const MessageCard = ({ message, avatar, person }) => {
+const MessageCard = ({ message, avatar, person, ref }) => {
   return (
-    <div
+    <div ref={ref}
       className={`flex  items-end gap-2 ${person ? 'flex-row-reverse' : 'flex-row'}`}
     >
       <img src={avatar} alt="avatar" className="size-8 rounded-full object-cover" />
