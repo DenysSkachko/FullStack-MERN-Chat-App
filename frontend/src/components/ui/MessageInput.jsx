@@ -54,16 +54,16 @@ const MessageInput = () => {
   return (
     <div className="p-4 w-full">
       {imagePreview && (
-        <div className="mb-3 flex items-center gap-2">
+        <div className="mb-3 flex items-center gap-2 bg-dark w-fit p-2 rounded-lg">
           <div className="relative">
             <img src={imagePreview} alt="Preview" className="w-20 h-20 object-cover rounded-lg" />
             <button
               onClick={removeImage}
               className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-middle
-              flex items-center justify-center"
+              flex items-center justify-center group"
               type="button"
             >
-              <BsX className="size-3" />
+              <BsX className="size-3 group-hover:scale-170 transition-all duration-300" />
             </button>
           </div>
         </div>
@@ -79,20 +79,21 @@ const MessageInput = () => {
           />
           <button
             type="button"
-            className="hidden sm:flex"
+            className="hidden sm:flex bg-dark hover:bg-dark/70 p-2 rounded-lg"
             onClick={() => fileInputRef.current?.click()}
+          
           >
             <BsImage className="size-8" />
           </button>
           <input
             type="text"
-            className="w-full rounded-lg bg-dark p-4"
+            className="w-full rounded-lg bg-dark p-3 outline-none text-white"
             placeholder="Type a message..."
             value={text}
             onChange={e => setText(e.target.value)}
           />
 
-          <button type="submit">
+          <button type="submit" className="bg-dark hover:bg-dark/70 p-2 rounded-lg">
             <BsSend className="size-8" />
           </button>
         </div>

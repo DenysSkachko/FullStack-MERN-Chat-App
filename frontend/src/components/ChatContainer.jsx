@@ -32,7 +32,15 @@ const ChatContainer = () => {
     }
   }, [messages])
 
-  if (isMessagesLoading) return <div>Loading...</div>
+  if (isMessagesLoading)
+    return (
+      <div className="flex flex-col flex-1">
+        <ChatHeader selectedUser={selectedUser} setSelectedUser={setSelectedUser} />
+
+        <div>Loading...</div>
+
+      </div>
+    )
 
   return (
     <div className="flex flex-col flex-1">
