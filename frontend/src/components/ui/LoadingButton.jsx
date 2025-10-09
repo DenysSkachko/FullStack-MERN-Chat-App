@@ -7,7 +7,7 @@ const LoadingButton = ({ isLoading, text, onClick, type }) => {
       type={type || 'button'}
       onClick={onClick}
       disabled={isLoading}
-      className="bg-accent text-dark w-full flex-center py-2 rounded-lg font-medium transition disabled:opacity-70 disabled:pointer-events-none"
+      className="bg-accent hover:bg-middle text-dark w-full flex-center py-2 rounded-lg font-medium transition-all duration-300 disabled:opacity-70 disabled:pointer-events-none"
     >
       {isLoading ? (
         <>

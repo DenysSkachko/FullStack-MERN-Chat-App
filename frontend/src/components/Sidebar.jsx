@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useChatStore } from '../store/useChatStore'
 import { FaUsers } from 'react-icons/fa'
 import { useAuthStore } from '../store/useAuthStore'
+import SidebarSkeleton from './UsersLoading'
 
 const Sidebar = () => {
   const { getUsers, users, selectedUser, setSelectedUser, isUsersLoading } = useChatStore()
@@ -12,25 +13,29 @@ const Sidebar = () => {
     getUsers()
   }, [getUsers])
 
-  if (isUsersLoading) return 1
+  /*   if (!isUsersLoading) return <SidebarSkeleton /> */
 
   return (
     <aside className="h-full w-20 lg:w-72 border-r border-dark bg-middle text-dark flex flex-col transition-all duration-300">
       <div className="border-b border-dark w-full px-5 py-3 h-18">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center justify-center md:justify-start gap-4">
           <FaUsers className="size-9" />
           <div className="hidden lg:flex flex-col gap-0.5">
             <span className="font-bold text-md ">Contacts</span>
             {onlineUsers && (
-              <span className={`font-bold w-fit text-[10px] text-white rounded-md px-2 py-0.5 ${onlineUsers.length === 1 ? "bg-dark" : "bg-green-400"}`}>
+              <span
+                className={`font-bold w-fit text-[10px] text-white rounded-md px-2 py-0.5 ${
+                  onlineUsers.length <= 1 ? 'bg-dark' : 'bg-green-400'
+                }`}
+              >
                 Online: {onlineUsers.length - 1}
               </span>
-            )}
+)}
           </div>
         </div>
-      </div>
+      </div>            
 
-      <div className="overflow-y-auto w-full pb-3">
+      {isUsersLoading ? <SidebarSkeleton /> : (<div className="overflow-y-auto w-full pb-3">
         {users.map(user => (
           <button
             key={user._id}
@@ -59,7 +64,8 @@ const Sidebar = () => {
             </div>
           </button>
         ))}
-      </div>
+      </div>)}
+      
     </aside>
   )
 }

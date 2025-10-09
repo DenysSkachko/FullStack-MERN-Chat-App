@@ -5,6 +5,7 @@ import FormItem from "../components/ui/FormItem"
 import { Link } from "react-router-dom"
 import AuthImagePattern from "../components/AuthImagePattern"
 import LoadingButton from "../components/ui/LoadingButton"
+import Logo from "../components/ui/Logo"
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
@@ -24,11 +25,9 @@ const LoginPage = () => {
         <div className="w-full max-w-md space-y-8">
           <div className="text-center mb-8">
             <div className="flex flex-col items-center gap-2 group">
-              <div className="size-12 rounded-xl bg-amber-300/10 flex-center group-hover:bg-amber-300/20 transition-colors ">
-                <MdMessage className="size-6" />
-              </div>
-              <h1 className="text-2xl font-bold mt-2">Create Account</h1>
-              <p>Get started with your free account</p>
+              <Logo />
+              <h1 className="text-2xl font-bold mt-2">Welcome back</h1>
+              <p>Log in with email and password</p>
             </div>
           </div>
 
@@ -47,9 +46,9 @@ const LoginPage = () => {
           </form>
 
           <div className="text-center">
-            <p className="text-base-content/60">
-              Already have an account?{" "}
-              <Link to="/signup" className="link link-primary">
+            <p className="text-middle">
+              Already have an account?
+              <Link to="/signup" className="bg-accent hover:bg-middle rounded-lg px-3 py-1 text-sm ml-3 font-semibold text-dark transition-all duration-300">
                 Sign up
               </Link>
             </p>

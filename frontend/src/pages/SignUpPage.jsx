@@ -66,9 +66,9 @@ const SignUpPage = () => {
           </form>
 
           <div className="text-center">
-            <p className="text-base-content/60">
-              Already have an account?{" "}
-              <Link to="/login" className="link link-primary">
+            <p className="text-middle">
+              Already have an account?
+              <Link to="/login" className="bg-accent hover:bg-middle rounded-lg px-3 py-1 text-sm ml-3 font-semibold text-dark transition-all duration-300">
                 Sign in
               </Link>
             </p>
