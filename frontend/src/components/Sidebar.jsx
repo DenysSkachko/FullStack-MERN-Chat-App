@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useChatStore } from '../store/useChatStore'
-import { FaUser } from 'react-icons/fa'
+import { FaUsers } from 'react-icons/fa'
 import { useAuthStore } from '../store/useAuthStore'
 
 const Sidebar = () => {
@@ -16,10 +16,17 @@ const Sidebar = () => {
 
   return (
     <aside className="h-full w-20 lg:w-72 border-r border-dark bg-middle text-dark flex flex-col transition-all duration-300">
-      <div className="border-b border-dark w-full p-5 h-18">
+      <div className="border-b border-dark w-full px-5 py-3 h-18">
         <div className="flex items-center gap-4">
-          <FaUser className="size-6" />
-          <span className="font-medium text-xl hidden lg:flex">Contacts</span>
+          <FaUsers className="size-9" />
+          <div className="hidden lg:flex flex-col gap-0.5">
+            <span className="font-bold text-md ">Contacts</span>
+            {onlineUsers && (
+              <span className={`font-bold w-fit text-[10px] text-white rounded-md px-2 py-0.5 ${onlineUsers.length === 1 ? "bg-dark" : "bg-green-400"}`}>
+                Online: {onlineUsers.length - 1}
+              </span>
+            )}
+          </div>
         </div>
       </div>
 
@@ -47,7 +54,7 @@ const Sidebar = () => {
               {onlineUsers.includes(user._id) ? (
                 <span className=" text-green-400 text-xs">online</span>
               ) : (
-                ""
+                ''
               )}
             </div>
           </button>
